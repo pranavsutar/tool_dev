@@ -5,6 +5,8 @@ import {
   SheetDirective,
   SheetsDirective,
   SpreadsheetComponent,
+  ColumnDirective,
+  ColumnsDirective,
 } from "@syncfusion/ej2-react-spreadsheet";
 
 
@@ -30,6 +32,14 @@ function Excel(props) {
             <RangesDirective>
               <RangeDirective dataSource={props.myjson}></RangeDirective>
             </RangesDirective>
+            <ColumnsDirective>
+              <ColumnDirective width={160}></ColumnDirective>
+              <ColumnDirective width={130}></ColumnDirective>
+              <ColumnDirective width={130}></ColumnDirective>
+              <ColumnDirective width={130}></ColumnDirective>
+              <ColumnDirective width={120}></ColumnDirective>
+              <ColumnDirective width={120}></ColumnDirective>
+            </ColumnsDirective>
           </SheetDirective>
         </SheetsDirective>
       </SpreadsheetComponent>
