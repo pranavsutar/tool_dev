@@ -5,6 +5,7 @@ import matplotlib
 from algorithm.sp_missingvalue import *
 from algorithm.correlated import *
 from algorithm.duplicate import *
+from algorithm.imbalance import *
 app = Flask(__name__)
 CORS(app)
    
@@ -78,6 +79,7 @@ def upload():
     results['bargraph_sp_miss'] = generate_bargraph_special_missing_values(df)
     results['bargraph_nan'] = generate_bargraph_nan_values(df)
     results['duplicates'] = duplicated(df)
+    results['imbalance'] = imbalance(df)
     j = jsonify(results)
     # print(df)    
     return results

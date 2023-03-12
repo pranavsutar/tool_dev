@@ -125,6 +125,14 @@ function App() {
               )}
             </ul>
           </div>
+          <div className='analysis-details'>
+            <h3 className='data-smells-title'>Class Imbalance</h3>
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.imbalance).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+              )}
+            </ul>
+          </div>
           <button className="download-btn" onClick={handleDownload}>Download Results as PDF</button>
         </div>
         )
