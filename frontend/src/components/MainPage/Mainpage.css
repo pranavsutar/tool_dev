@@ -1,0 +1,10 @@
+.input-file {
+    margin-right: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 2px solid #008080;
+    background-color:black;
+    color: #008080;
+    font-size: 1rem;
+    cursor: pointer;
+  }
