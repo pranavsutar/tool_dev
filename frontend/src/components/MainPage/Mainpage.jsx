@@ -68,7 +68,7 @@ export default function MainPage() {
       });
   };
   return (
-    <div className='sheet'>
+    <div className='main_file' >
       <input
         type="file"
         name="file"
@@ -82,7 +82,7 @@ export default function MainPage() {
 
 
       <Excel myjson={jsonData} />
-      <Button variant="outline-dark" onClick={handleUpload}>Submit</Button>
+      <Button className="button_1" variant="outline-dark" onClick={handleUpload}>Submit</Button>
 
       {(
         analysisData && (

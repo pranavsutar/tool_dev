@@ -7,6 +7,7 @@ import "./Navigationbar.css";
 
 
 
+
 export default function NavigationBar() {
     const navRef = useRef();
 
@@ -24,6 +25,7 @@ export default function NavigationBar() {
             /> */}
 
             <nav ref={navRef}>
+                <a href="/#">Sniffs CSV</a>
                 <div class="topnav-right">
                     <a href="/#">HELP</a>
                     <a href="/#">ABOUT US</a>

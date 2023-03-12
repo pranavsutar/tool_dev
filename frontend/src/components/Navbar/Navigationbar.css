@@ -8,9 +8,9 @@
 }
 
 :root {
-	--mainColor: #29335c;
+	--mainColor: black;
 	--mainColorLight: #5767aa;
-	--secondaryColor: #db2b39;
+	--secondaryColor: grey;
 	--textColor: #eee;
 }
 
