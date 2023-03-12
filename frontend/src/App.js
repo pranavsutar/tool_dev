@@ -3,13 +3,12 @@
 // import { Spinner } from 'react-bootstrap';
 // import jsPDF from 'jspdf';
 import "./App.css";
-import CSVJSON from "./components/excel/CSVJSON";
 import Excel from "./components/excel/Excel";
 
 function App() {
   return (
     <div>
-      <Excel />;{/* <CSVJSON /> */}
+      <Excel />
     </div>
   );
   // const [selectedFile, setSelectedFile] = useState(null);
