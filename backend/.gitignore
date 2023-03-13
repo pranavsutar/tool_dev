@@ -1,0 +1,6 @@
+
+# new environment
+
+__pycache__/
+*.py[cod]
+*env/
