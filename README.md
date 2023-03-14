@@ -67,16 +67,32 @@ npm install
 ## Usage
 
 1. Start the Flask server:
+  - On a new Terminal,
 ```
-cd ../backend
+cd backend
 python app.py
 ```
 
 2. Start the React development server:
+  - On another terminal
 ```
-cd ../frontend
+cd frontend
 npm start
 ```
+3. Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
 Note: Make sure you have Python, Flask, and Node.js installed on your system before following the above installation steps.
+
+
+## Screenshots
+
+![image](https://user-images.githubusercontent.com/84005308/224994760-c4b69770-256c-4ebd-874d-c94b96a4056d.png)
+![image](https://user-images.githubusercontent.com/84005308/224992705-1059131b-3e29-4ce4-88d0-82073621a0ef.png)
+![image](https://user-images.githubusercontent.com/84005308/224989609-80faef87-2ce9-42b6-a98b-ccad3ad07571.png)
+![image](https://user-images.githubusercontent.com/84005308/224994404-067ff351-0927-49a9-b784-a6de73dc4dc5.png)
+
+![image](https://user-images.githubusercontent.com/84005308/224991001-896e87be-912f-4bf2-9d49-92ef56ba80d8.png)
+
+
+
 
