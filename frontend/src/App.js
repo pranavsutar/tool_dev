@@ -65,7 +65,7 @@ function App() {
           </div>
         </div>}
       <header className="App-header">
-        <h1>Data Smells Detector</h1>
+        <h1>SniffCSV<br></br>Data Smells Detector</h1>
         <div id='input-file-container'>
           <input type="file"  className="input-file" onChange={handleFileUpload} />
           <button onClick={handleUpload} className="analyze-btn">Analyze</button>
