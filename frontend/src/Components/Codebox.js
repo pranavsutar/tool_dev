@@ -14,6 +14,9 @@ const Codebox = ({ language, code }) => {
     }, 2000);
   };
 
+  if (!code) {
+    return <span></span>;
+  }
   return (
     <>
     <style jsx>{`
