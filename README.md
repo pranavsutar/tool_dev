@@ -2,7 +2,7 @@
 
 ### Data Smells
 
-Data smells are like code smells, but for data. They're indicators of potential problems or issues in the data that could cause errors, anomalies, or incorrect results. Examples of data smells include missing values, outliers, inconsistencies, and duplicates.
+Data smells are like code smells, but for data. They're indicators of potential problems or issues in the data that could cause errors, anomalies, or incorrect results. Examples of data smells include missing values, outliers, inconsistencies, and duplicates. To get the summary of the Literature that is referred to make the project, check this [Document](https://docs.google.com/document/d/1KeCS8or6hZ2f2LbN94tTqCukNlDi83PxRI2Z-2AHYI0/edit?usp=sharing)
 
 ## Problem Statement
 The traditional approach of data quality assurance relied on manual testing, which was a time-consuming and error-prone process. With the increasing demand for data quality, automated data quality assurance tools have gained popularity. Our goal was to design a tool that identifies data smells, which can then be fixed to improve the overall quality of data.
@@ -86,8 +86,9 @@ Note: Make sure you have Python, Flask, and Node.js installed on your system bef
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/84005308/224994760-c4b69770-256c-4ebd-874d-c94b96a4056d.png)
-![image](https://user-images.githubusercontent.com/84005308/224992705-1059131b-3e29-4ce4-88d0-82073621a0ef.png)
+![image](https://user-images.githubusercontent.com/84005308/225398837-422195a0-f9c8-4f9c-be37-86a418dd4a2d.png)
+![image](https://user-images.githubusercontent.com/84005308/225398702-2ece2fae-67cd-4b25-ad2a-c0427ae23adf.png)
+
 ![image](https://user-images.githubusercontent.com/84005308/224989609-80faef87-2ce9-42b6-a98b-ccad3ad07571.png)
 ![image](https://user-images.githubusercontent.com/84005308/224994404-067ff351-0927-49a9-b784-a6de73dc4dc5.png)
 
