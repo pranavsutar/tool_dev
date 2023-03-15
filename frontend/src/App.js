@@ -4,7 +4,9 @@ import { Spinner } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import './App.css';
 import Navbar from './Components/Navbar';
+import Codebox from './Components/Codebox';
 
+const language = 'python';
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [analysisData, setAnalysisData] = useState(null);
@@ -88,10 +90,11 @@ function App() {
             <h3 className="data-smells-title">Special Missing Values</h3>
                                   
             <ul className="data-smells-list">
-              {splitIntoSentences(analysisData.missing_values).map((sentence, index) =>
+              {splitIntoSentences(analysisData.missing_values.Info).map((sentence, index) =>
                 <li key={index}>{sentence}</li>
                 )}
             </ul>
+            <Codebox language={language} code={analysisData.missing_values.Code} />
               {bargraph_sp_miss && (
                 <div>
                   <h3>Special Missing Values</h3>

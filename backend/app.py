@@ -89,23 +89,23 @@ def SpecialMissingValues(df):
         sugg + '# for each column, replace the special missing values with NaN values.\n'
         sugg += 'for col in df.columns:\n'
         sugg += '    df[col] = df[col].replace(special_missing_values, np.nan)\n'
-        sugg += '# check for NaN values again\n'
+        # sugg += '# check for NaN values again\n'
         sugg += 'df.isnull().sum().sum()\n'
 
-        sugg += '# for each column, replace the NaN values with the mean of the column if the column is numeric.\n'
+        # sugg += '# for each column, replace the NaN values with the mean of the column if the column is numeric.\n'
         sugg += 'for col in df.columns:\n'
         sugg += '    if df[col].dtype == np.float64 or df[col].dtype == np.int64:\n'
         sugg += '        df[col] = df[col].fillna(df[col].mean())\n'
-        sugg += '# check for NaN values again\n'
+        # sugg += '# check for NaN values again\n'
         sugg += 'df.isnull().sum().sum()\n'
 
-        sugg += '# for each column, replace the NaN values with the mode of the column if the column is categorical.\n'
+        # sugg += '# for each column, replace the NaN values with the mode of the column if the column is categorical.\n'
         sugg += 'for col in df.columns:\n'
         sugg += '    if df[col].dtype == np.object:\n'
         sugg += '        df[col] = df[col].fillna(df[col].mode()[0])\n'
-        sugg += '# check for NaN values again\n'
+        # sugg += '# check for NaN values again\n'
         
-        s += sugg
+        # s += sugg
     else:
         s += "There are no special missing values in the dataset.\n \n"
 
@@ -130,14 +130,14 @@ def SpecialMissingValues(df):
         sugg_2 += '        df[col] = df[col].fillna(df[col].mode()[0])\n'
         sugg_2 += '# check for NaN values again\n'
         sugg_2 += 'df.isnull().sum().sum()\n'
-        s += sugg_2
+        # s += sugg_2
 
         
 
     else:
         s += "\nThere are no NaN values in the dataset."
 
-    return s
+    return s,sugg,sugg_2
 
 def correlated(df):
     # Compute the correlation matrix
@@ -203,7 +203,8 @@ def upload():
     results['num_rows'] = len(df)
     results['num_cols'] = len(df.columns)
     results['column_names'] = list(df.columns)
-    results['missing_values'] = SpecialMissingValues(df)
+    spd = SpecialMissingValues(df)
+    results['missing_values'] = {'Info': spd[0], 'Code': spd[1], 'Code_Nan':spd[2]}
     results['heatmap'] = generate_heatmap(df)
     results['correlated'] = correlated(df)
     results['bargraph_sp_miss'] = generate_bargraph_special_missing_values(df)
