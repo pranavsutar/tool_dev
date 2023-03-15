@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 import './App.css';
+import Navbar from './Components/Navbar';
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -55,7 +56,10 @@ function App() {
   };
   
   return (
+    <>
+    <Navbar />
     <div className="App">
+      
       {/*       {loading && <div className="loading-overlay"><div className="spinner"></div></div>} { show spinner when loading } */}
       { isLoading  && <div className="loading-overlay"><div className="spinner"></div>
           <div className="loading-spinner">
@@ -131,6 +135,7 @@ function App() {
       )}
       </header>
     </div>
+    </>
   );
 }
 
