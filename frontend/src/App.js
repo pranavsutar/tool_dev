@@ -101,6 +101,13 @@ function App() {
                   <img src={`data:image/png;base64,${bargraph_sp_miss}`} alt="special missing values" />
                 </div>
               )}
+              <h3> NaN Values</h3>
+                  <ul className="data-smells-list">
+                    {splitIntoSentences(analysisData.missing_values.InfoNan).map((sentence, index) =>
+                      <li key={index}>{sentence}</li>
+                      )}
+                  </ul>
+                  <Codebox language={language} code={analysisData.missing_values.Code_Nan} />
               {bargraph_nan && (
                 <div>
                   <h3>NaN Values</h3>

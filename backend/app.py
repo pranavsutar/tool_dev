@@ -26,6 +26,9 @@ def generate_bargraph_special_missing_values(df):
     # Display a bar graph that tells the number of special missing values in each column of the dataset
     special_missing_values = ['-', 'n/a', 'N/A', 'NA', '--', '?']
     pres = {num : 0 for num in df.columns if df[num].isin(special_missing_values).sum()}
+    # If the graph is empty, return None
+    if not pres:
+        return None
     for num in df.columns:
         if df[num].isin(special_missing_values).sum():
             pres[num] = df[num].isin(special_missing_values).sum()
@@ -38,12 +41,16 @@ def generate_bargraph_special_missing_values(df):
     # Encode the image data as base64 string
     img_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
     plt.close()
+
     return img_base64
 
 def generate_bargraph_nan_values(df):
     # Check for NaN values
     # Display a bar graph that tells the number of NaN values in each column of the dataset
     pres = {num : 0 for num in df.columns if df[num].isnull().sum() >0}
+    # If the graph is empty, return None
+    if not pres:
+        return None
     for num in df.columns:
         if df[num].isnull().sum():
             pres[num] = df[num].isnull().sum()
@@ -61,7 +68,7 @@ def generate_bargraph_nan_values(df):
 
 def SpecialMissingValues(df):
     # Check for special missing values
-    s = ''
+    s = ''; s2 = ''
     special_missing_values = ['-', 'n/a', 'N/A', 'NA', '--', '?']
     pres = {val: 0 for val in special_missing_values}
     for val in special_missing_values:
@@ -107,19 +114,19 @@ def SpecialMissingValues(df):
         
         # s += sugg
     else:
-        s += "There are no special missing values in the dataset.\n \n"
+        s += "There are no special missing values in the dataset.\n"
 
     # Check for NaN values
     sugg_2 = ''
     if df.isnull().values.any():
-        s += f'''There are NaN values in the dataset.\n
+        s2 += f'''There are NaN values in the dataset.\n
     Number of NaN values: {df.isnull().sum().sum()}\n
     Percentage of NaN values: {round(df.isnull().sum().sum() / (df.shape[0] * df.shape[1]) * 100, 2)} %\n
     NaN values in each column:\n
     '''
         for col in df.columns:
             if df[col].isnull().sum():
-                s += f'''{col}: {df[col].isnull().sum()}\n'''  
+                s2 += f'''{col}: {df[col].isnull().sum()}\n'''  
     # Refactoring :
         sugg_2 += '# for each column, replace the NaN values with the mean of the column if the column is numeric.\n'
         
@@ -135,9 +142,9 @@ def SpecialMissingValues(df):
         
 
     else:
-        s += "\nThere are no NaN values in the dataset."
+        s2 += "\nThere are no NaN values in the dataset."
 
-    return s,sugg,sugg_2
+    return s,s2,sugg,sugg_2
 
 def correlated(df):
     # Compute the correlation matrix
@@ -204,7 +211,7 @@ def upload():
     results['num_cols'] = len(df.columns)
     results['column_names'] = list(df.columns)
     spd = SpecialMissingValues(df)
-    results['missing_values'] = {'Info': spd[0], 'Code': spd[1], 'Code_Nan':spd[2]}
+    results['missing_values'] = {'Info': spd[0], 'InfoNan': spd[1], 'Code': spd[2], 'Code_Nan':spd[3]}
     results['heatmap'] = generate_heatmap(df)
     results['correlated'] = correlated(df)
     results['bargraph_sp_miss'] = generate_bargraph_special_missing_values(df)
