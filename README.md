@@ -87,12 +87,11 @@ Note: Make sure you have Python, Flask, and Node.js installed on your system bef
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/84005308/225398837-422195a0-f9c8-4f9c-be37-86a418dd4a2d.png)
+![image](https://user-images.githubusercontent.com/84005308/225539292-faa9cd05-dd13-428f-893e-27f212f1b72f.png)
 ![image](https://user-images.githubusercontent.com/84005308/225398702-2ece2fae-67cd-4b25-ad2a-c0427ae23adf.png)
 
-![image](https://user-images.githubusercontent.com/84005308/224989609-80faef87-2ce9-42b6-a98b-ccad3ad07571.png)
 ![image](https://user-images.githubusercontent.com/84005308/224994404-067ff351-0927-49a9-b784-a6de73dc4dc5.png)
-
-![image](https://user-images.githubusercontent.com/84005308/224991001-896e87be-912f-4bf2-9d49-92ef56ba80d8.png)
+![image](https://user-images.githubusercontent.com/84005308/224989609-80faef87-2ce9-42b6-a98b-ccad3ad07571.png)
 
 
 
