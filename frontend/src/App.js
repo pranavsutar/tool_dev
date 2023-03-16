@@ -5,10 +5,13 @@ import jsPDF from 'jspdf';
 import './App.css';
 import Navbar from './Components/Navbar';
 import Codebox from './Components/Codebox';
+import Excel from './Components/excel/Excel';
+import  Papa from "papaparse";
 
 const language = 'python';
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [jsonData, setJsonData] = useState(null);
   const [analysisData, setAnalysisData] = useState(null);
   const [heatmapData, setHeatmapData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +21,15 @@ function App() {
 
   const handleFileUpload = (event) => {
     setSelectedFile(event.target.files[0]);
+    // Added for excel Purpose, which itself is Okay
+    Papa.parse(event.target.files[0], {
+      header: true,
+      skipEmptyLines: true,
+      dynamicTyping: true,
+      complete: function (result) {
+        setJsonData(result.data);
+      },
+    });
   };
 
   const handleUpload = () => {
@@ -79,7 +91,10 @@ function App() {
         
         { (
     analysisData && (
-        <div className="results-container">
+      <>
+      
+          <Excel myjson={jsonData} />
+      <div className="results-container">
           <h2 className="analysis-title">Analysis Results</h2>
           <div className="analysis-summary">
             <p>Number of Rows: {analysisData.num_rows}</p>
@@ -141,7 +156,7 @@ function App() {
           </div>
           <button className="download-btn" onClick={handleDownload}>Download Results as PDF</button>
         </div>
-        )
+        </>)
       )}
       </header>
     </div>
