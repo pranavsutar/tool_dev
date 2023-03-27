@@ -21,6 +21,21 @@ def generate_heatmap(df):
     plt.close()
     return img_base64
 
+
+def generate_boxplot(df):
+    sns.boxplot(data=df.select_dtypes(include=['float64', 'int64']))
+    plt.xticks(rotation=90)
+    # Save the plot to a BytesIO object
+    img_bytes = io.BytesIO()
+    plt.savefig(img_bytes, format='png')
+    img_bytes.seek(0)
+    # Encode the image data as base64 string
+    img_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
+    plt.close()
+    return img_base64
+
+
+
 def generate_bargraph_special_missing_values(df):
     # Check for special missing value.
     # Display a bar graph that tells the number of special missing values in each column of the dataset
@@ -201,6 +216,58 @@ def duplicated(df):
 
     return instr
 
+def Outliers(df):
+    instr = ''
+    # print("Outliers:")
+    instr += str("Outliers:\n")
+    present = False
+    for col in df.columns:
+        if df[col].dtype == np.float64 or df[col].dtype == np.int64:
+            # print(col)
+            instr += str(col + "\n")
+            # print("Mean:", df[col].mean())
+            instr += str("Mean: " + str(df[col].mean()) + "\n")
+            # print("Standard deviation:", df[col].std())
+            instr += str("Standard deviation: " + str(df[col].std()) + "\n")
+            # print("Minimum value:", df[col].min())
+            instr += str("Minimum value: " + str(df[col].min()) + "\n")
+            # print("Maximum value:", df[col].max())
+            instr += str("Maximum value: " + str(df[col].max()) + "\n")
+            # print("Number of outliers:", df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0])
+            instr += str("Number of outliers: " + str(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0]) + "\n")
+            # print("Percentage of outliers:", round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2), "%")
+            instr += str("Percentage of outliers: " + str(round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2)) + " %\n")
+            # print("Indices of outliers:", df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].index.tolist())
+            instr += str("Indices of outliers: " + str(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].index.tolist()) + "\n")
+            # print()
+            instr += str("\n")
+            if df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] > 0:
+                present = True
+    sugg = ''; code = ''
+    if not present:
+        # print("There are no outliers in the dataset.")
+        sugg += str("There are no outliers in the dataset.\n")
+
+    else:
+        # print("There are outliers in the dataset.")
+        sugg += str("There are outliers in the dataset.\n")
+        # statistics:
+        sugg += f'Number of outliers: {df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0]}\n'
+        sugg += f'Percentage of outliers: {round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2)}%\n'
+        # print("You can remove the outliers from the dataset using the following code:")
+        sugg += str("You can remove the outliers from the dataset using the following code:\n")
+        code += '''
+        # Remove outliers
+initial_shape = df.shape
+for col in df.columns:
+    if df[col].dtype == np.float64 or df[col].dtype == np.int64:
+        df = df[(df[col] >= df[col].mean() - 3 * df[col].std()) & (df[col] <= df[col].mean() + 3 * df[col].std())]
+        # print("Number of outliers removed from", col + ":", initial_shape[0] - df.shape[0])
+        # print("Percentage of outliers removed from", col + ":", round((initial_shape[0] - df.shape[0]) / initial_shape[0] * 100, 2), "%")
+
+            '''
+    return instr, sugg, code
+
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -217,6 +284,8 @@ def upload():
     results['bargraph_sp_miss'] = generate_bargraph_special_missing_values(df)
     results['bargraph_nan'] = generate_bargraph_nan_values(df)
     results['duplicates'] = duplicated(df)
+    outl = Outliers(df)
+    results['outliers'] = {'Info': outl[0], 'Suggestion': outl[1], 'Code': outl[2], 'plot': generate_boxplot(df)}
     j = jsonify(results)
     print(j)    
     return j

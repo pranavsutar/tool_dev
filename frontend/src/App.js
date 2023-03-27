@@ -17,6 +17,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [bargraph_sp_miss, setBargraph_sp_miss] = useState(null);
   const [bargraph_nan, setBargraph_nan] = useState(null);
+  const [boxplot, setBoxplot] = useState(null);
 
 
   const handleFileUpload = (event) => {
@@ -43,6 +44,7 @@ function App() {
         setHeatmapData(response.data.heatmap);
         setBargraph_sp_miss(response.data.bargraph_sp_miss);
         setBargraph_nan(response.data.bargraph_nan);
+        setBoxplot(response.data.outliers.plot);
         console.log(response.data);
         setIsLoading(false);
       })
@@ -146,6 +148,21 @@ function App() {
             </ul>
             </div>
           </div>
+          <div className='analysis-details'>
+            <h3 className='data-smells-title'>Outliers</h3>
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.outliers.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+              )}
+            </ul>
+            <Codebox language={language} code={analysisData.outliers.Code} />
+            {boxplot && (
+              <div>
+                <h3>Boxplot</h3>
+                <img src={`data:image/png;base64,${boxplot}`} alt="boxplot" />
+              </div>
+            )}
+          </div>  
           <div className='analysis-details'>
             <h3 className='data-smells-title'>Duplicate Values</h3>
             <ul className="data-smells-list">
