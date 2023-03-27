@@ -8,8 +8,12 @@
 
 ### Data Smells
 
-Data smells are like code smells, but for data. They're indicators of potential problems or issues in the data that could cause errors, anomalies, or incorrect results. Examples of data smells include missing values, outliers, inconsistencies, and duplicates. To get the summary of the Literature that is referred to make the project, check this [Document](https://docs.google.com/document/d/1KeCS8or6hZ2f2LbN94tTqCukNlDi83PxRI2Z-2AHYI0/edit?usp=sharing)
-
+Data smells are like code smells, but for data. They're indicators of potential problems or issues in the data that could cause errors, anomalies, or incorrect results. Examples of data smells include missing values, outliers, inconsistencies, and duplicates. To get the summary of the Literature that is referred to make the project, check this [Document](https://docs.google.com/document/d/1KeCS8or6hZ2f2LbN94tTqCukNlDi83PxRI2Z-2AHYI0/edit?usp=sharing)  
+  
+Click [here](https://docs.google.com/presentation/d/1diNg_PpORvf27XCHzOYn0uVxPgJwcnYZZExDU31xpEo/edit?usp=sharing) for detailed PPT of SniffCSV.   
+Click [here](https://docs.google.com/document/d/1gC8bakHO5gczBAmdN5ls3FrquIA5ykdXCtFxasXN8cE/edit?usp=sharing) for report of Release 1.   
+Click [here](www.youtube.com/watch?v=-WXldgfmmwQ) for the demo video of SniffCSV 1.0   
+ 
 ## Problem Statement
 The traditional approach of data quality assurance relied on manual testing, which was a time-consuming and error-prone process. With the increasing demand for data quality, automated data quality assurance tools have gained popularity. Our goal was to design a tool that identifies data smells, which can then be fixed to improve the overall quality of data.
 
@@ -89,6 +93,8 @@ npm start
 
 Note: Make sure you have Python, Flask, and Node.js installed on your system before following the above installation steps.
 
+[![Watch the video](https://img.youtube.com/vi/-WXldgfmmwQ/0.jpg)](https://www.youtube.com/watch?v=-WXldgfmmwQ)  
+* This is a demo video of my project*
 
 ## Screenshots
 
