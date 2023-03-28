@@ -221,28 +221,37 @@ def Outliers(df):
     # print("Outliers:")
     instr += str("Outliers:\n")
     present = False
+    num_outliers = 0
+    total_size = 0
     for col in df.columns:
         if df[col].dtype == np.float64 or df[col].dtype == np.int64:
-            # print(col)
-            instr += str(col + "\n")
-            # print("Mean:", df[col].mean())
-            instr += str("Mean: " + str(df[col].mean()) + "\n")
-            # print("Standard deviation:", df[col].std())
-            instr += str("Standard deviation: " + str(df[col].std()) + "\n")
-            # print("Minimum value:", df[col].min())
-            instr += str("Minimum value: " + str(df[col].min()) + "\n")
-            # print("Maximum value:", df[col].max())
-            instr += str("Maximum value: " + str(df[col].max()) + "\n")
-            # print("Number of outliers:", df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0])
-            instr += str("Number of outliers: " + str(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0]) + "\n")
-            # print("Percentage of outliers:", round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2), "%")
-            instr += str("Percentage of outliers: " + str(round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2)) + " %\n")
-            # print("Indices of outliers:", df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].index.tolist())
-            instr += str("Indices of outliers: " + str(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].index.tolist()) + "\n")
-            # print()
-            instr += str("\n")
+            # # print(col)
+            # instr += str(col + "\n")
+            # # print("Mean:", df[col].mean())
+            # instr += str("Mean: " + str(df[col].mean()) + "\n")
+            # # print("Standard deviation:", df[col].std())
+            # instr += str("Standard deviation: " + str(df[col].std()) + "\n")
+            # # print("Minimum value:", df[col].min())
+            # instr += str("Minimum value: " + str(df[col].min()) + "\n")
+            # # print("Maximum value:", df[col].max())
+            # instr += str("Maximum value: " + str(df[col].max()) + "\n")
+            # # print("Number of outliers:", df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0])
+            # instr += str("Number of outliers: " + str(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0]) + "\n")
+            num_outliers += df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0]
+            # # print("Percentage of outliers:", round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2), "%")
+            total_size += df.shape[0]
+            # instr += str("Percentage of outliers: " + str(round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2)) + " %\n")
+            # # print("Indices of outliers:", df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].index.tolist())
+            # ol = df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].index.tolist()
+            # instr += str("Indices of outliers(first 20): " + str(ol[:min(20, len(ol))]) + "\n")
+            # # print()
+            # instr += str("\n")
             if df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] > 0:
                 present = True
+    # print("Number of outliers:", num_outliers)
+    instr += str("Number of outliers: " + str(num_outliers) + "\n")
+    # print("Percentage of outliers:", round(num_outliers / total_size * 100, 2), "%")
+    instr += str("Percentage of outliers: " + str(round(num_outliers / total_size * 100)) + " %\n")
     sugg = ''; code = ''
     if not present:
         # print("There are no outliers in the dataset.")
@@ -253,19 +262,22 @@ def Outliers(df):
         sugg += str("There are outliers in the dataset.\n")
         # statistics:
         sugg += f'Number of outliers: {df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0]}\n'
-        sugg += f'Percentage of outliers: {round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100, 2)}%\n'
+        sugg += f'Percentage of outliers: {round(df[(df[col] < df[col].mean() - 3 * df[col].std()) | (df[col] > df[col].mean() + 3 * df[col].std())].shape[0] / df.shape[0] * 100)}%\n'
         # print("You can remove the outliers from the dataset using the following code:")
         sugg += str("You can remove the outliers from the dataset using the following code:\n")
-        code += '''
-        # Remove outliers
+        code += '''# Remove outliers
 initial_shape = df.shape
 for col in df.columns:
     if df[col].dtype == np.float64 or df[col].dtype == np.int64:
-        df = df[(df[col] >= df[col].mean() - 3 * df[col].std()) & (df[col] <= df[col].mean() + 3 * df[col].std())]
+        df = df[(df[col] >= df[col].mean() - 3 * df[col].std()) 
+        & (df[col] <= df[col].mean() + 3 * df[col].std())]
         # print("Number of outliers removed from", col + ":", initial_shape[0] - df.shape[0])
-        # print("Percentage of outliers removed from", col + ":", round((initial_shape[0] - df.shape[0]) / initial_shape[0] * 100, 2), "%")
+        # print("Percentage of outliers removed from", col + ":",
+        # round((initial_shape[0] - df.shape[0]) / initial_shape[0] * 100, 2), "%")
 
             '''
+        
+    instr += sugg
     return instr, sugg, code
 
 
