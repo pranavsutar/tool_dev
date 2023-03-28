@@ -4,6 +4,7 @@
   - Description of the Tool
   - Installation
   - Method to Run
+  - Demo Video
   - Screenshots
 
 ### Data Smells
