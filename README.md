@@ -64,6 +64,7 @@ git clone https://github.com/pranavsutar/tool_dev.git
 ```
 cd backend
 python -m venv myenv
+cmd
 .\myenv\Scripts\activate   # This command will not work in VS Code Terminal, but in cmd
 pip install -r requirements.txt
 ```
