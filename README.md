@@ -62,7 +62,7 @@ git clone https://github.com/pranavsutar/tool_dev.git
 2. Set up the backend environment:
 
 ```
-cd tool_dev/backend
+cd backend
 python -m venv myenv
 .\myenv\Scripts\activate   # This command will not work in VS Code Terminal, but in cmd
 pip install -r requirements.txt
