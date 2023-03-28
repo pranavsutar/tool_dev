@@ -94,7 +94,7 @@ npm start
 Note: Make sure you have Python, Flask, and Node.js installed on your system before following the above installation steps.
 
 [![Watch the video](https://img.youtube.com/vi/-WXldgfmmwQ/0.jpg)](https://www.youtube.com/watch?v=-WXldgfmmwQ)  
-* This is a demo video of my project*
+* This is a demo video of the project 
 
 ## Screenshots
 
