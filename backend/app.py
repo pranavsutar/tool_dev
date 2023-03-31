@@ -8,9 +8,11 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn as sns
 
+# Initialize the Flask application
 app = Flask(__name__)
 CORS(app)
-   
+
+# route http posts to this method
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
