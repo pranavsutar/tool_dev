@@ -107,11 +107,11 @@ function App() {
             <h3 className="data-smells-title">Special Missing Values</h3>
                                   
             <ul className="data-smells-list">
-              {splitIntoSentences(analysisData.missing_values.Info).map((sentence, index) =>
+              {splitIntoSentences(analysisData.sp_missing_values.Info).map((sentence, index) =>
                 <li key={index}>{sentence}</li>
                 )}
             </ul>
-            <Codebox language={language} code={analysisData.missing_values.Code} />
+            <Codebox language={language} code={analysisData.sp_missing_values.Code} />
               {bargraph_sp_miss && (
                 <div>
                   <h3>Special Missing Values</h3>
@@ -120,15 +120,31 @@ function App() {
               )}
               <h3> NaN Values</h3>
                   <ul className="data-smells-list">
-                    {splitIntoSentences(analysisData.missing_values.InfoNan).map((sentence, index) =>
+                    {splitIntoSentences(analysisData.sp_missing_values.InfoNan).map((sentence, index) =>
                       <li key={index}>{sentence}</li>
                       )}
                   </ul>
-                  <Codebox language={language} code={analysisData.missing_values.Code_Nan} />
+                  <Codebox language={language} code={analysisData.sp_missing_values.Code_Nan} />
               {bargraph_nan && (
                 <div>
                   <h3>NaN Values</h3>
                   <img src={`data:image/png;base64,${bargraph_nan}`} alt="NaN values" />
+                </div>
+              )}
+          </div>
+          <div className="analysis-details">
+            <h3 className="data-smells-title">Missing Values</h3>
+                                  
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.missing_values.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+                )}
+            </ul>
+            <Codebox language={language} code={analysisData.missing_values.Code} />
+              {bargraph_nan && (
+                <div>
+                  <h3> Missing Values</h3>
+                  <img src={`data:image/png;base64,${bargraph_nan}`} alt="missing values" />
                 </div>
               )}
           </div>

@@ -124,3 +124,43 @@ def SpecialMissingValues(df):
         s2 += "\nThere are no NaN values in the dataset."
 
     return s,s2,sugg,sugg_2
+
+
+def missing_values(df):
+    # Check for missing values
+    v = df.isnull().sum().sum()
+    s = ''; sugg = ''; code = ''
+    if not v:
+        s += "There are no missing values in the dataset.\n"
+    else:
+        s += f'''There are missing values in the dataset.\n
+    Number of missing values: {v}\n
+    Percentage of missing values: {round(v / (df.shape[0] * df.shape[1]) * 100, 2)} %\n
+    Missing values in each column:\n
+    '''
+        limit = 10
+        for col in df.columns:
+            if df[col].isnull().sum():
+                s += f'''{col}: {df[col].isnull().sum()}\n'''
+                if not limit:
+                    break
+                limit -= 1
+        code += '# for each column, replace the missing values with the mean of the column if the column is numeric.\n'
+        code += 'for col in df.columns:\n'
+        code += '    if df[col].dtype == np.float64 or df[col].dtype == np.int64:\n'
+        code += '        df[col] = df[col].fillna(df[col].mean())\n'
+        code += '# check for missing values again\n'
+        code += 'df.isnull().sum().sum()\n'
+        code += '# for each column, replace the missing values with the mode of the column if the column is categorical.\n'
+        code += 'for col in df.columns:\n'
+        code += '    if df[col].dtype == np.object:\n'
+        code += '        df[col] = df[col].fillna(df[col].mode()[0])\n'
+        code += '# check for missing values again\n'
+        code += 'df.isnull().sum().sum()\n'
+
+    return s, code
+
+def generate_bargraph_missing_values(df):    
+    return generate_bargraph_nan_values(df)
+
+     

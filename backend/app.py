@@ -12,6 +12,8 @@ import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn 
 app = Flask(__name__)
 CORS(app)
 
+
+
 # route http posts to this method
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -22,9 +24,12 @@ def upload():
     results['num_cols'] = len(df.columns)
     results['column_names'] = list(df.columns)
     spd = SpecialMissingValues(df)
-    results['missing_values'] = {'Info': spd[0], 'InfoNan': spd[1], 'Code': spd[2], 'Code_Nan':spd[3]}
+    results['sp_missing_values'] = {'Info': spd[0], 'InfoNan': spd[1], 'Code': spd[2], 'Code_Nan':spd[3]}
+    spd = missing_values(df)
+    results['missing_values'] = {'Info': spd[0],  'Code': spd[1]}
     results['heatmap'] = generate_heatmap(df)
     results['correlated'] = correlated(df)
+    results['bargraph_miss'] = generate_bargraph_missing_values(df)
     results['bargraph_sp_miss'] = generate_bargraph_special_missing_values(df)
     results['bargraph_nan'] = generate_bargraph_nan_values(df)
     results['duplicates'] = duplicated(df)
