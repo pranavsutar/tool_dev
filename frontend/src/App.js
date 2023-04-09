@@ -17,6 +17,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [bargraph_sp_miss, setBargraph_sp_miss] = useState(null);
   const [bargraph_nan, setBargraph_nan] = useState(null);
+  const [bargraph_binning_cat, setBargraph_binning_cat] = useState(null);
+  const [bargraph_class_imbal, setBargraph_class_imbal] = useState(null);
+  // const [bargraph_sp_char, setBargraph_sp_char] = useState(null);
+  // const [bargraph_hum_friendly, setBargraph_hum_friendly] = useState(null);
+  // const [bargraph_tr_spaces, setBargraph_tr_spaces] = useState(null);
+  const bargraph_sp_char = null; const bargraph_hum_friendly = null; const bargraph_tr_spaces = null;
   const [boxplot, setBoxplot] = useState(null);
 
 
@@ -45,6 +51,11 @@ function App() {
         setBargraph_sp_miss(response.data.bargraph_sp_miss);
         setBargraph_nan(response.data.bargraph_nan);
         setBoxplot(response.data.outliers.plot);
+        setBargraph_binning_cat(response.data.binning_cat.plot);
+        setBargraph_class_imbal(response.data.imbalance.plot);
+        // setBargraph_sp_char(response.data.sp_char.plot);
+        // setBargraph_hum_friendly(response.data.hum_friendly.plot);
+        // setBargraph_tr_spaces(response.data.tr_spaces.plot);
         console.log(response.data);
         setIsLoading(false);
       })
@@ -127,7 +138,7 @@ function App() {
                   <Codebox language={language} code={analysisData.sp_missing_values.Code_Nan} />
               {bargraph_nan && (
                 <div>
-                  <h3>NaN Values</h3>
+                  <h4>NaN Values</h4>
                   <img src={`data:image/png;base64,${bargraph_nan}`} alt="NaN values" />
                 </div>
               )}
@@ -143,11 +154,86 @@ function App() {
             <Codebox language={language} code={analysisData.missing_values.Code} />
               {bargraph_nan && (
                 <div>
-                  <h3> Missing Values</h3>
+                  <h4> Missing Values</h4>
                   <img src={`data:image/png;base64,${bargraph_nan}`} alt="missing values" />
                 </div>
               )}
           </div>
+          <div className="analysis-details">
+            <h3 className="data-smells-title">Binning Categorical</h3>
+                                  
+            <ul className="data-smells-list">              
+              {splitIntoSentences(analysisData.binning_cat.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+                )}
+            </ul>
+            <Codebox language={language} code={analysisData.binning_cat.Code} />
+              {bargraph_binning_cat && (
+                <div>
+                  <h4> Binning Categorical</h4>
+                  <img src={`data:image/png;base64,${bargraph_binning_cat}`} alt="binning_categorical" />
+                </div>
+              )}
+          </div>
+          {/* Class Imbalance */}
+          <div className="analysis-details">
+            <h3 className="data-smells-title">Class Imbalance</h3>
+
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.imbalance.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+                )}
+            </ul>
+              {bargraph_class_imbal && (
+                <div>
+                  <h4> Class Imbalance</h4>
+                  <img src={`data:image/png;base64,${bargraph_class_imbal}`} alt="class_imbalance" />
+                </div>
+              )}
+          </div>
+          <div className="analysis-details">
+            <h3 className="data-smells-title">Special Characters</h3>
+
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.sp_char.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+                )}
+            </ul>
+              {bargraph_sp_char && (
+                <div>
+                  <h4> Special Characters</h4>
+                  <img src={`data:image/png;base64,${bargraph_sp_char}`} alt="special_characters" />
+                </div>
+              )}
+          </div>
+          <div className="analysis-details">
+            <h3 className="data-smells-title">Human Friendly</h3>
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.hum_friendly.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+                )}
+            </ul>
+              {bargraph_hum_friendly && (
+                <div>
+                  <h4> Human Friendly</h4>
+                  <img src={`data:image/png;base64,${bargraph_hum_friendly}`} alt="hum_friendly" />
+                </div>
+              )}
+          </div>
+          <div className="analysis-details">
+            <h3 className="data-smells-title">Trailing Spaces</h3>
+            <ul className="data-smells-list">
+              {splitIntoSentences(analysisData.tr_spaces.Info).map((sentence, index) =>
+                <li key={index}>{sentence}</li>
+                )}
+            </ul>
+              {bargraph_tr_spaces && (
+                <div>
+                  <h4> Trailing Spaces</h4>
+                  <img src={`data:image/png;base64,${bargraph_tr_spaces}`} alt="tr_spaces" />
+                </div>
+              )}
+          </div> 
           <div className='analysis-details'>
             <h3 className='data-smells-title'>Correlated Values</h3>
             <div className='heatmap-container'>
@@ -174,7 +260,7 @@ function App() {
             <Codebox language={language} code={analysisData.outliers.Code} />
             {boxplot && (
               <div>
-                <h3>Boxplot</h3>
+                <h4>Boxplot</h4>
                 <img src={`data:image/png;base64,${boxplot}`} alt="boxplot" />
               </div>
             )}

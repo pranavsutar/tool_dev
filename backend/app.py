@@ -3,6 +3,8 @@ from algorithm.sp_missingvalues import *
 from algorithm.correlated import *
 from algorithm.outliers import *
 from algorithm.duplicates import *
+from algorithm.imbalance import *
+from algorithm.stringsmells import *
 
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -33,6 +35,17 @@ def upload():
     results['bargraph_sp_miss'] = generate_bargraph_special_missing_values(df)
     results['bargraph_nan'] = generate_bargraph_nan_values(df)
     results['duplicates'] = duplicated(df)
+    bnc = binning_cat(df)
+    results['binning_cat'] = {'Info': bnc[0],  'Code': bnc[1], 'plot': generate_bargraph_binning_cat(df)}
+    imb = class_imbal(df)
+    results['imbalance'] = {'Info': imb[0] + imb[1],  'plot': generate_bargraph_class_imbal(df)}
+    # Trailng Spaces, Special Characters, Human Friendly
+    spcr = detect_special_characters(df)
+    results['sp_char'] = {'Info': spcr[0], 'Code': spcr[1], 'plot': generate_bargraph_special_characters(df)}
+    trsp = trailing_spaces(df)
+    results['tr_spaces'] = {'Info': trsp[0], 'Code': trsp[1], 'plot': generate_bargraph_trailing_spaces(df)}
+    humf = human_friendly(df)
+    results['hum_friendly'] = {'Info': humf[0], 'Code': humf[1], 'plot': generate_bargraph_human_friendly(df)}
     outl = Outliers(df)
     results['outliers'] = {'Info': outl[0], 'Suggestion': outl[1], 'Code': outl[2], 'plot': generate_boxplot(df)}
     j = jsonify(results)

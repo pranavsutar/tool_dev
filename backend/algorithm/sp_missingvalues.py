@@ -103,9 +103,13 @@ def SpecialMissingValues(df):
     Percentage of NaN values: {round(df.isnull().sum().sum() / (df.shape[0] * df.shape[1]) * 100, 2)} %\n
     NaN values in each column:\n
     '''
+        lim = 10
         for col in df.columns:
-            if df[col].isnull().sum():
-                s2 += f'''{col}: {df[col].isnull().sum()}\n'''  
+            if df[col].isnull().sum() and lim:
+                s2 += f'''{col}: {df[col].isnull().sum()}\n'''
+                lim -= 1  
+        if lim == 0:
+            s2 += 'and few more...\n'
     # Refactoring :
         sugg_2 += '# for each column, replace the NaN values with the mean of the column if the column is numeric.\n'
         
