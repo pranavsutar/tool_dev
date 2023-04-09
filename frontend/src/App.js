@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import jsPDF from 'jspdf';
+import CustomText from './Components/CustomText';
 import './App.css';
 import Navbar from './Components/Navbar';
 import Codebox from './Components/Codebox';
@@ -97,9 +98,12 @@ function App() {
         </div>}
       <header className="App-header">
         <h1>SniffCSV<br></br>Data Smells Detector</h1>
-        <div id='input-file-container'>
+        <div id ="Surbh">
+          <div id='input-file-container'>
           <input type="file"  className="input-file" onChange={handleFileUpload} />
           <button onClick={handleUpload} className="analyze-btn">Analyze</button>
+        </div>
+        <CustomText/>
         </div>
         
         { (
@@ -279,7 +283,14 @@ function App() {
       )}
       </header>
     </div>
+    
     </>
+    
+      
+    
+
+
+
   );
 }
 
