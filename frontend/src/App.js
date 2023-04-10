@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import MainPage from './components/MainPage/Mainpage';
+import MainPage from './components/DefaultPage/Mainpage';
 import NavigationBar from './components/Navbar/Navigationbar';
 import "./App.css"
 
