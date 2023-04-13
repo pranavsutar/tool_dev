@@ -36,7 +36,7 @@ export default function MainPage() {
     const formData = new FormData();
     formData.append('file', selectedFile);
 
-    axios.post('http://localhost:5000/upload', formData)
+    axios.post('http://127.0.0.1:5000/upload', formData)
       .then(response => {
         setAnalysisData(response.data);
         setHeatmapData(response.data.heatmap);

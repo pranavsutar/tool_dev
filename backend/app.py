@@ -7,10 +7,10 @@ from algorithm.correlated import *
 from algorithm.duplicate import *
 from algorithm.unique_id import *
 from algorithm.bin_missing import *
-
+import json
 app = Flask(__name__)
 CORS(app)
-   
+df  = None
 matplotlib.use('Agg')
 def generate_heatmap(df):
     corr = df.corr(numeric_only=True)
@@ -70,6 +70,7 @@ def generate_bargraph_nan_values(df):
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
+    global df 
     df = pd.read_csv(file)
     
     results = {}
@@ -86,9 +87,18 @@ def upload():
     results['bin_missing'] = bin_missing(df)
 
     j = jsonify(results)
-    # print(df)    
+    print(df)    
     return results
-
+@app.route('/regularExp', methods=['POST'])
+def regularExp():
+    global df
+    print(df)
+    d = request.form.to_dict()
+    regex = ''
+    for key in d:
+        regex = key
+    #code.......
+    return regex
 if __name__ == '__main__':
     app.run(debug= True)
  
