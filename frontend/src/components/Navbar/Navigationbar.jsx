@@ -25,7 +25,7 @@ export default function NavigationBar() {
             /> */}
 
             <nav ref={navRef}>
-                <a href="/#">Sniffs CSV</a>
+                <a href="/#"> <h4>Sniffs CSV</h4> </a>
                 <div class="topnav-right">
                     <a href="/#">HELP</a>
                     <a href="/#">ABOUT US</a>
