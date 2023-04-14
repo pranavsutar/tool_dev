@@ -1,8 +1,27 @@
-import numpy as np
+
+import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn as sns
+
+# To check and visualize the correlation between the features in the dataset
+def generate_heatmap(df):
+    corr = df.corr()
+    plt.imshow(corr, cmap='coolwarm', interpolation='none')
+    plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
+    plt.yticks(range(len(corr.columns)), corr.columns)
+    plt.colorbar()
+    # Save the plot to a BytesIO object
+    img_bytes = io.BytesIO()
+    plt.savefig(img_bytes, format='png')
+    img_bytes.seek(0)
+    # Encode the image data as base64 string
+    img_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
+    plt.close()
+    return img_base64
+
+
 
 def correlated(df):
     # Compute the correlation matrix
-    corr_matrix = df.corr(numeric_only=True) 
+    corr_matrix = df.corr() 
     instr = []
 
     # Identify highly correlated features
@@ -13,7 +32,7 @@ def correlated(df):
                 colname = corr_matrix.columns[i]
                 high_corr_features.add(colname)
     # Highest cvalue of correlation on non-diagonal elements
-    max_corr = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool_)).stack().max()
+    max_corr = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool)).stack().max()
     print("Maximum correlation value among any two values:", max_corr)
     # instr += "Maximum correlation value among any two values: " + str(max_corr) + "\n"
     instr.append("Maximum correlation value among any two distinct values: " + str(max_corr) + "\n")

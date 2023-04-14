@@ -14,6 +14,7 @@ export const RegExForm = () =>{
     }
     const handleChange = (e) => {
         setRegex(e.target.value);
+        setResult('To Be Implemented');
     }
         return (
             <div>

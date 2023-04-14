@@ -1,5 +1,5 @@
 import Excel from "../ExcelSheet/Excel";
-import { Spinner } from "react-bootstrap";
+// import { Spinner } from "react-bootstrap";
 import React, { useState } from "react";
 import Papa from "papaparse";
 import axios from "axios";
@@ -88,7 +88,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="main_file">
+    <div className="App">
       {isLoading && (
         <div className="loading-overlay">
           <div className="spinner"></div>
@@ -105,7 +105,7 @@ export default function MainPage() {
           className="input-file"
         />
         <Button
-          className="button_1"
+          className="analyze-btn"
           variant="outline-dark"
           onClick={handleUpload}
         >

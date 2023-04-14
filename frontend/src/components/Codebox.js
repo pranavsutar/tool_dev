@@ -14,6 +14,9 @@ const Codebox = ({ language, code }) => {
     }, 2000);
   };
 
+  if (!code) {
+    return <span></span>;
+  }
   return (
     <>
     <style jsx>{`
@@ -87,4 +90,3 @@ export default Codebox;
 //     print("Hello World")`;
 //  const language = 'python';
 //  <Codebox language={language} code={snippet} />
-
