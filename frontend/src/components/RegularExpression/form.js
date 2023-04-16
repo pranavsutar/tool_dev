@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './form.css'
 
 export const RegExForm = () =>{
     const [regex, setRegex] = useState('');
@@ -17,17 +18,32 @@ export const RegExForm = () =>{
         setResult('To Be Implemented');
     }
         return (
-            <div>
+            <div >
                 <h1>Regular Expression Form</h1>
                 <form onClick={handleSubmit}>
-                    <label>Regular Expression</label>
-                    <input type="text" name="regex" onChange={handleChange}/>
+
+                    <label>Regular Expression for Row  &nbsp; </label>
+                    <input type="text" name="regexrow" className="field" onChange={handleChange}/>
                     {regex}
-                    <button type="submit">Submit</button>
+                    <button type="submit" className="btn">Submit</button>
                     {
                         result ? <p>{result}</p> : null
                     }
+
                 </form>
+
+                <form onClick={handleSubmit}>
+
+                    <label>Regular Expression for Col &nbsp; &nbsp; </label>
+                    <input type="text" name="regexcolumn" className="field" onChange={handleChange}/>
+                    {regex}
+                    <button type="submit" className="btn">Submit</button>
+                    {
+                        result ? <p>{result}</p> : null
+                    }
+
+                </form>
+
             </div>
         )
 }
