@@ -14,10 +14,12 @@ def detect_special_characters(df):
                     special_char_features.append(col)
         if len(special_char_features) > 0:
             global special_char_present; special_char_present = True
-            s = "There are features with special characters in the dataset."
-            s += "Features with special characters: " + str(special_char_features[:8])
+            s = "There are features with special characters in the dataset.\n"
+            s += "Features with special characters: " + str(special_char_features[:8] )
             if len(special_char_features) > 8:
                 s += "...\n"
+            else:
+                s += "\n"
             s+= f' Code for refactoring: \n'
             code += f'''
     for col in df.columns:
@@ -45,22 +47,26 @@ def detect_special_characters(df):
 def generate_bargraph_special_characters(df):
     if not special_char_present:
         return None
-    
-    pres = {num : 0 for num in df.columns if df[num].str.contains('[^A-Za-z0-9\s]+').sum()}
-    for num in df.columns:
-        if df[num].str.contains('[^A-Za-z0-9\s]+').sum():
-            pres[num] = df[num].str.contains('[^A-Za-z0-9\s]+').sum()
-    plt.bar(pres.keys(), pres.values())
-    plt.xticks(rotation=90)
-    # Save the plot to a BytesIO object
-    img_bytes = io.BytesIO()
-    plt.savefig(img_bytes, format='png')
-    img_bytes.seek(0)
-    # Encode the image data as base64 string
-    img_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
-    plt.close()
+    try:
+        pres = {num : 0 for num in df.columns if df[num].str.contains('[^A-Za-z0-9\s]+').sum()}
+        for num in df.columns:
+            if df[num].str.contains('[^A-Za-z0-9\s]+').sum():
+                pres[num] = df[num].str.contains('[^A-Za-z0-9\s]+').sum()
+        plt.bar(pres.keys(), pres.values())
+        plt.xticks(rotation=90)
+        # Save the plot to a BytesIO object
+        img_bytes = io.BytesIO()
+        plt.savefig(img_bytes, format='png')
+        img_bytes.seek(0)
+        # Encode the image data as base64 string
+        img_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
+        plt.close()
 
-    return img_base64
+        return img_base64
+    
+    except Exception as e:
+        # print(e)
+        return None
 
 # Detecting Trailng Spaces
 '''# create a list to store the column names with trailing spaces

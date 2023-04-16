@@ -8,6 +8,7 @@ import jsPDF from "jspdf";
 import { Button } from "react-bootstrap";
 
 import Codebox from "../Codebox";
+import AnalysisDetails from "./AnalysisDetails";
 
 const language = "python";
 export default function MainPage() {
@@ -200,30 +201,12 @@ export default function MainPage() {
                 </div>
               )}
             </div>
-            <div className="analysis-details">
-              <h3 className="data-smells-title">Binning Categorical</h3>
-
-              <ul className="data-smells-list">
-                {splitIntoSentences(analysisData.binning_cat.Info).map(
-                  (sentence, index) => (
-                    <li key={index}>{sentence}</li>
-                  )
-                )}
-              </ul>
-              <Codebox
+              <AnalysisDetails
+                analysisData={analysisData}
                 language={language}
-                code={analysisData.binning_cat.Code}
+                bargraph_binning_cat={bargraph_binning_cat}
+                binning_cat_name={'Binning Categories'}
               />
-              {bargraph_binning_cat && (
-                <div>
-                  <h4> Binning Categorical</h4>
-                  <img
-                    src={`data:image/png;base64,${bargraph_binning_cat}`}
-                    alt="binning_categorical"
-                  />
-                </div>
-              )}
-            </div>
             {/* Class Imbalance */}
             <div className="analysis-details">
               <h3 className="data-smells-title">Class Imbalance</h3>
@@ -235,6 +218,7 @@ export default function MainPage() {
                   )
                 )}
               </ul>
+              <Codebox language={language} code={analysisData.imbalance.Code} />
               {bargraph_class_imbal && (
                 <div>
                   <h4> Class Imbalance</h4>
@@ -255,6 +239,7 @@ export default function MainPage() {
                   )
                 )}
               </ul>
+              <Codebox language={language} code={analysisData.sp_char.Code} />
               {bargraph_sp_char && (
                 <div>
                   <h4> Special Characters</h4>
@@ -274,6 +259,7 @@ export default function MainPage() {
                   )
                 )}
               </ul>
+              <Codebox language={language} code={analysisData.hum_friendly.Code} />
               {bargraph_hum_friendly && (
                 <div>
                   <h4> Human Friendly</h4>
@@ -293,6 +279,7 @@ export default function MainPage() {
                   )
                 )}
               </ul>
+              <Codebox language={language} code={analysisData.tr_spaces.Code} />
               {bargraph_tr_spaces && (
                 <div>
                   <h4> Trailing Spaces</h4>

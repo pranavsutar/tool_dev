@@ -2,7 +2,14 @@ import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn 
 
 #  To check the outliers in the dataset
 def generate_boxplot(df):
-    sns.boxplot(data=df.select_dtypes(include=['float64', 'int64']))
+
+    # sns.boxplot(data=df.select_dtypes(include=['float64', 'int64']))
+    # check if there are columns with the right data type
+    if df.select_dtypes(include=['float64', 'int64']).shape[1] > 0:
+        sns.boxplot(data=df.select_dtypes(include=['float64', 'int64']))
+    else:
+        # sns.boxplot(data=df)
+        return None
     plt.xticks(rotation=90)
     # Save the plot to a BytesIO object
     img_bytes = io.BytesIO()
@@ -49,7 +56,10 @@ def Outliers(df):
     # print("Number of outliers:", num_outliers)
     instr += str("Number of outliers: " + str(num_outliers) + "\n")
     # print("Percentage of outliers:", round(num_outliers / total_size * 100, 2), "%")
-    instr += str("Percentage of outliers: " + str(round(num_outliers / total_size * 100)) + " %\n")
+    if total_size == 0:
+        instr += str("Percentage of outliers: 0 %\n")
+    else:
+        instr += str("Percentage of outliers: " + str(round(num_outliers / total_size * 100)) + " %\n")
     sugg = ''; code = ''
     if not present:
         # print("There are no outliers in the dataset.")

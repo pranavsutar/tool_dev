@@ -1,9 +1,38 @@
 
 import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn as sns
-
+from dython.nominal import cramers_v
 # To check and visualize the correlation between the features in the dataset
 def generate_heatmap(df):
+    # when the correlation map is empty due to data type mismatch, return None
     corr = df.corr()
+    if corr.empty:
+        return None
+        # # use cramers_v to check correlation between categorical features
+
+        # cat_cols = df.select_dtypes(include=['object']).columns
+        # if len(cat_cols) > 1:
+        #     corr_matrix = pd.DataFrame(index=cat_cols, columns=cat_cols)
+        #     # plot the correlation heatmap
+        #     for i in range(len(cat_cols)):
+        #         for j in range(i):
+        #             corr_matrix.iloc[i, j] = cramers_v(df[cat_cols[i]], df[cat_cols[j]])
+        #             corr_matrix.iloc[j, i] = corr_matrix.iloc[i, j]
+        #     plt.figure(figsize=(10, 10))
+        #     sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt='.2f')
+        #     # Save the plot to a BytesIO object
+        #     img_bytes = io.BytesIO()
+        #     plt.savefig(img_bytes, format='png')
+        #     img_bytes.seek(0)
+        #     # Encode the image data as base64 string
+        #     img_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
+        #     plt.close()
+        #     return img_base64
+        # else:
+        #     return None
+
+            # return 
+
+
     plt.imshow(corr, cmap='coolwarm', interpolation='none')
     plt.xticks(range(len(corr.columns)), corr.columns, rotation=90)
     plt.yticks(range(len(corr.columns)), corr.columns)
@@ -23,7 +52,10 @@ def correlated(df):
     # Compute the correlation matrix
     corr_matrix = df.corr() 
     instr = []
-
+    if corr_matrix.empty:
+        # print("There are no highly correlated features in the dataset.")
+        instr.append("There are no highly correlated features in the dataset.\n")
+        return instr
     # Identify highly correlated features
     high_corr_features = set()
     for i in range(len(corr_matrix.columns)):
@@ -47,9 +79,6 @@ def correlated(df):
         # instr += "Highly correlated features: " + str(high_corr_features) + "\n"
         instr.extend(["There are highly correlated features in the dataset.\n", "Number of highly correlated features: " + str(len(high_corr_features)) + "\n", "Highly correlated features: " + str(high_corr_features) + "\n"])
 
-        
-
-        
     else:
         print("There are no highly correlated features in the dataset.")
         # instr += "There are no highly correlated features in the dataset.\n"
