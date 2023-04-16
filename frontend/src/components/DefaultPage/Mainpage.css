@@ -24,11 +24,11 @@ h1 {
   color: teal;
   font-size: 1rem;
   cursor: pointer;
-  animation: pulse 4s ease-in-out infinite;
-  -webkit-animation: pulse 4s ease-in-out infinite;
+  /* animation: pulse 4s ease-in-out infinite;
+  -webkit-animation: pulse 4s ease-in-out infinite; */
 }
 
-@keyframes pulse {
+/* @keyframes pulse {
   0% {
     transform: scale(1);
   }
@@ -42,7 +42,7 @@ h1 {
   100% {
     transform: scale(1);
   }
-}
+} */
 .input-file:before {
   position: relative;
   display: inline-block;
