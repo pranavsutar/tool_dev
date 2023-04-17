@@ -1,7 +1,7 @@
 import React from "react";
 // import { useState } from "react";
 // import axios from "axios";
-// import { RegExForm } from "./components/RegularExpression/form";
+import { RegExForm } from "./components/RegularExpression/form";
 import MainPage from "./components/DefaultPage/Mainpage";
 import NavigationBar from "./components/Navbar/Navigationbar";
 
@@ -13,7 +13,7 @@ function App() {
     <div className="total-main">
       <NavigationBar />
       <MainPage />
-      {/* <RegExForm/> */}
+      <RegExForm/>
     </div>
   );
 }

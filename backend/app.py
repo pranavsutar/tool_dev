@@ -5,6 +5,9 @@ from algorithm.outliers import *
 from algorithm.duplicates import *
 from algorithm.imbalance import *
 from algorithm.stringsmells import *
+import json
+
+df = None
 
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -20,6 +23,7 @@ CORS(app)
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['file']
+    global df
     df = pd.read_csv(file)
     results = {}
     results['num_rows'] = len(df)
@@ -52,6 +56,54 @@ def upload():
     # print(j)    
     return j
 
+@app.route('/regularExp', methods=['POST'])
+def regularExp():
+    global df
+    #print(df)
+    count = 10
+    regex = request.json['regex']
+    colNo = request.json['colNo']
+    #string to regex string
+    #filtered_df = df[int(colNo)].str.match[(regex)]
+    #print(filtered_df)
+    # matches = df[col].astype(str).str.match(pattern)
+    matches  = df[df.columns[int(colNo)]].astype(str).str.match(regex)
+    # print lentgh of matches
+    #count where matches is true
+    count = len(matches[matches == True].index)
+    print(count, len(matches))
+    
+    #print(matches)
+    print(regex)
+    print(colNo)
+    
+    #code.......
+    return jsonify({'count': count})
 if __name__ == '__main__':
     app.run(debug= True)
- 
+
+
+
+
+
+'''
+# define the regular expression to match
+regex_pattern = r'^[a-z]{3}\d{2}$'
+
+col_name = 'Custom Name'
+# # filter the DataFrame using the regular expression
+filtered_df = df[col_name].str.match(regex_pattern)]
+
+# for col in filtered_df.columns:
+#     filtered_df = filtered_df[filtered_df[col].str.match(regex_pattern)]
+
+
+# print the filtered DataFrame
+print(filtered_df)
+
+
+# print the filtered DataFrame
+print(filtered_df)
+
+
+'''

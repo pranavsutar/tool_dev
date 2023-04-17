@@ -1,6 +1,6 @@
 
 import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn as sns
-from dython.nominal import cramers_v
+# from dython.nominal import cramers_v
 # To check and visualize the correlation between the features in the dataset
 def generate_heatmap(df):
     # when the correlation map is empty due to data type mismatch, return None
