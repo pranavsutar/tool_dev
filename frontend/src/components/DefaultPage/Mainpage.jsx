@@ -6,9 +6,10 @@ import axios from "axios";
 import "./Mainpage.css";
 import jsPDF from "jspdf";
 import { Button } from "react-bootstrap";
-
+import html2canvas from "html2canvas";
 import Codebox from "../Codebox";
 import Table from "./Table";
+import { RegExForm } from "../RegularExpression/form";
 
 const language = "python";
 export default function MainPage() {
@@ -28,8 +29,11 @@ export default function MainPage() {
   const bargraph_hum_friendly = null;
   const bargraph_tr_spaces = null;
   const [boxplot, setBoxplot] = useState(null);
+  const [click, setClick] = useState(false);
+  const [fileChosen, setFileChosen] = useState(false);
 
   const handleFileUpload = (event) => {
+    setFileChosen(true);
     setSelectedFile(event.target.files[0]);
     // Added for excel Purpose, which itself is Okay
     Papa.parse(event.target.files[0], {
@@ -43,6 +47,7 @@ export default function MainPage() {
   };
 
   const handleUpload = () => {
+    setClick(true);
     setIsLoading(true); // we will set this to false when the response is received
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -68,25 +73,33 @@ export default function MainPage() {
         setIsLoading(false);
       });
   };
-
   const handleDownload = () => {
-    setIsLoading(true); // off it when the pdf is downloaded, i.e after the pdf is saved
-    const pdf = new jsPDF();
-    const resultsContainer = document.getElementById("results-container");
-    pdf.fromHTML(resultsContainer, 15, 15);
-    // pdf.save('results.pdf');
-    // setIsLoading(false);
-    // it should be asynchoronous
-    pdf
-      .save("results.pdf")
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-      });
+    html2canvas(document.body).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, "PNG", 0, 0);
+      pdf.save("page-content.pdf");
+    });
   };
+
+  // const handleDownload = () => {
+  //   setIsLoading(true); // off it when the pdf is downloaded, i.e after the pdf is saved
+  //   const pdf = new jsPDF();
+  //   const resultsContainer = document.getElementById("results-container");
+  //   pdf.fromHTML(resultsContainer, 15, 15);
+  //   // pdf.save('results.pdf');
+  //   // setIsLoading(false);
+  //   // it should be asynchoronous
+  //   pdf
+  //     .save("results.pdf")
+  //     .then(() => {
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setIsLoading(false);
+  //     });
+  // };
 
   return (
     <div className="App">
@@ -110,12 +123,12 @@ export default function MainPage() {
           className="input-file"
         />
         <Button
-          className="analyze-btn"
-          variant="outline-dark"
+          className="analyze-btn d-flex align-self-center"
+          variant="success"
+          size="lg"
           onClick={handleUpload}
         >
-          {" "}
-          Analysis{" "}
+          Analysis
         </Button>
       </div>
 
@@ -389,6 +402,7 @@ export default function MainPage() {
           </div>
         </div>
       )}
+      {click && fileChosen && <RegExForm />}
     </div>
   );
 }

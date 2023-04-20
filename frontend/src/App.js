@@ -5,7 +5,6 @@ import { RegExForm } from "./components/RegularExpression/form";
 import MainPage from "./components/DefaultPage/Mainpage";
 import NavigationBar from "./components/Navbar/Navigationbar";
 
-
 // import './App.css';
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
     <div className="total-main">
       <NavigationBar />
       <MainPage />
-      <RegExForm/>
+      {/* <RegExForm/> */}
     </div>
   );
 }

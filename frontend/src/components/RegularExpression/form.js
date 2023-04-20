@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 import "./form.css";
 
 export const RegExForm = () => {
@@ -33,7 +34,7 @@ export const RegExForm = () => {
       <div className="form-container">
         <form className="form-box" onClick={handleSubmit}>
           <div className="reg-exp">
-            <label>Enter the Regular Expression for column: &nbsp; </label>
+            <label>Enter the RegEx for column: &nbsp; </label>
             <input
               type="text"
               name="regexrow"
@@ -42,7 +43,7 @@ export const RegExForm = () => {
             />
           </div>
           <div className="reg-exp">
-            <label>Enter the column number: &nbsp;</label>
+            <label>Enter the Column number: &nbsp; &nbsp;</label>
             <input
               type="text"
               name="regexrow"
@@ -50,9 +51,16 @@ export const RegExForm = () => {
               onChange={handleChangeColNum}
             />
           </div>
-          <button type="submit" className="regex-btn">
-            Submit
-          </button>
+          <div className="d-flex justify-content-center my-2">
+            <Button
+              type="submit"
+              className="regex-btn align-items-center"
+              variant="success"
+              size="lg"
+            >
+              Submit
+            </Button>
+          </div>
           {result ? <p>{result}</p> : null}
           {count ? <p>Number Of Matches:{count}</p> : null}
         </form>
