@@ -8,6 +8,7 @@ import jsPDF from "jspdf";
 import { Button } from "react-bootstrap";
 
 import Codebox from "../Codebox";
+import Table from "./Table";
 
 const language = "python";
 export default function MainPage() {
@@ -95,6 +96,9 @@ export default function MainPage() {
         </div>
       )}
 
+      <div className="heading-text">
+        <h1>SniffCSV DataSmell Detector</h1>
+      </div>
       <div className="Intput-and-Btn">
         <br />
         <input
@@ -138,14 +142,20 @@ export default function MainPage() {
             </div>
             <div className="analysis-details">
               <h3 className="data-smells-title">1) Special Missing Values</h3>
-
-              <ul className="data-smells-list">
+              <Table
+                col1Arr={analysisData.sp_missing_values.splmissCols}
+                col2Arr={analysisData.sp_missing_values.missingPer}
+                col1={"Column Name"}
+                col2={"Missing Percentage"}
+                smellName={"Special Missing Values"}
+              />
+              {/* <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.sp_missing_values.Info).map(
                   (sentence, index) => (
                     <li key={index}>{sentence}</li>
                   )
                 )}
-              </ul>
+              </ul> */}
               <Codebox
                 language={language}
                 code={analysisData.sp_missing_values.Code}
@@ -159,7 +169,7 @@ export default function MainPage() {
                   <div className="fig-text"> Special Missing Values</div>
                 </div>
               )}
-              <h5> NaN Values</h5>
+              {/* <h5> NaN Values</h5>
               <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.sp_missing_values.InfoNan).map(
                   (sentence, index) => (
@@ -179,18 +189,25 @@ export default function MainPage() {
                   />
                   <div className="fig-text">NaN Values</div>
                 </div>
-              )}
+              )} */}
             </div>
             <div className="analysis-details">
               <h3 className="data-smells-title"> 2) Missing Values</h3>
 
-              <ul className="data-smells-list">
+              <Table
+                col1Arr={analysisData.missing_values.missCols}
+                col2Arr={analysisData.missing_values.missPer}
+                col1={"Column Name"}
+                col2={"Missing Percentage"}
+                smellName={"Missing Values"}
+              />
+              {/* <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.missing_values.Info).map(
                   (sentence, index) => (
                     <li key={index}>{sentence}</li>
                   )
                 )}
-              </ul>
+              </ul> */}
               <Codebox
                 language={language}
                 code={analysisData.missing_values.Code}
@@ -206,32 +223,45 @@ export default function MainPage() {
               )}
             </div>
             <div className="analysis-details">
-            <h3 className="data-smells-title">3) Binning Categorical</h3>
-                                  
-            <ul className="data-smells-list">              
-              {splitIntoSentences(analysisData.binning_cat.Info).map((sentence, index) =>
-                <li key={index}>{sentence}</li>
-                )}
-            </ul>
-            <Codebox language={language} code={analysisData.binning_cat.Code} />
+              <h3 className="data-smells-title">3) Binning Categorical</h3>
+              <Table
+                col1Arr={analysisData.binning_cat.binCols}
+                col2Arr={analysisData.binning_cat.unqVals}
+                col1={"Column Name"}
+                col2={"Unique values"}
+                smellName={"Binning Categorical Columns"}
+              />
+              <Codebox
+                language={language}
+                code={analysisData.binning_cat.Code}
+              />
               {bargraph_binning_cat && (
                 <div className="image-box">
-                  <img src={`data:image/png;base64,${bargraph_binning_cat}`} alt="binning_categorical" />
+                  <img
+                    src={`data:image/png;base64,${bargraph_binning_cat}`}
+                    alt="binning_categorical"
+                  />
                   <div className="fig-text">Binning Categorical</div>
                 </div>
               )}
-          </div>
+            </div>
             {/* Class Imbalance */}
             <div className="analysis-details">
               <h3 className="data-smells-title">4) Class Imbalance</h3>
-
-              <ul className="data-smells-list">
+              <Table
+                col1Arr={analysisData.imbalance.imbCols}
+                col2Arr={analysisData.imbalance.imbRatio}
+                col1={"Column Name"}
+                col2={"Imbalance ratio"}
+                smellName={"Categorical Columns with Class Imbalance"}
+              />
+              {/* <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.imbalance.Info).map(
                   (sentence, index) => (
                     <li key={index}>{sentence}</li>
                   )
                 )}
-              </ul>
+              </ul> */}
               <Codebox language={language} code={analysisData.imbalance.Code} />
               {bargraph_class_imbal && (
                 <div className="image-box">
@@ -265,7 +295,7 @@ export default function MainPage() {
               )}
             </div>
             <div className="analysis-details">
-              <h3 className="data-smells-title">{'6) Human Friendly'}</h3>
+              <h3 className="data-smells-title">{"6) Human Friendly"}</h3>
               <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.hum_friendly.Info).map(
                   (sentence, index) => (
@@ -288,7 +318,7 @@ export default function MainPage() {
               )}
             </div>
             <div className="analysis-details">
-              <h3 className="data-smells-title">{'7) Trailing Spaces'}</h3>
+              <h3 className="data-smells-title">{"7) Trailing Spaces"}</h3>
               <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.tr_spaces.Info).map(
                   (sentence, index) => (
@@ -303,12 +333,12 @@ export default function MainPage() {
                     src={`data:image/png;base64,${bargraph_tr_spaces}`}
                     alt="tr_spaces"
                   />
-                  <div className="fig-text">{'8) Trailing Spaces'}</div>
+                  <div className="fig-text">{"8) Trailing Spaces"}</div>
                 </div>
               )}
             </div>
             <div className="analysis-details">
-              <h3 className="data-smells-title">{'9) Correlated Values'}</h3>
+              <h3 className="data-smells-title">{"9) Correlated Values"}</h3>
               <div className="heatmap-container">
                 {heatmapData && (
                   <div className="image-box">
@@ -327,7 +357,7 @@ export default function MainPage() {
               </div>
             </div>
             <div className="analysis-details">
-              <h3 className="data-smells-title">{'10)Outliers'}</h3>
+              <h3 className="data-smells-title">{"10)Outliers"}</h3>
               <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.outliers.Info).map(
                   (sentence, index) => (
@@ -344,7 +374,7 @@ export default function MainPage() {
               )}
             </div>
             <div className="analysis-details">
-              <h3 className="data-smells-title">{'11) Duplicate Values'}</h3>
+              <h3 className="data-smells-title">{"11) Duplicate Values"}</h3>
               <ul className="data-smells-list">
                 {splitIntoSentences(analysisData.duplicates).map(
                   (sentence, index) => (

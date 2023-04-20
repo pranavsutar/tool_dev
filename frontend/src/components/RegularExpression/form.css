@@ -1,21 +1,37 @@
+.regex-container h1 {
+  margin-top: 1rem;
+  color: #066;
+  text-align: center;
+}
+
+.form-container {
+  display: block;
+  width: 40%;
+  margin: auto;
+}
+
+.form-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .field {
-    width: 18%;
-    height: 32px;
-    border-radius: 4px;
-    position: relative;
-    background-color: rgba(255,255,255,0.3);
-    transition: 0.3s all;
-    margin-top: 5px;
-    margin-bottom: 5px; 
-  }
-  .field:hover {
-    background-color: rgba(255, 255, 255, 0.45);
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
-  }
+  width: 18%;
+  height: 32px;
+  border-radius: 4px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.3s all;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.field:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
 
-
-
-.btn{
+.regex-btn {
   display: inline-block;
   outline: 0;
   appearance: none;
@@ -35,9 +51,8 @@
   margin-bottom: 6px;
 }
 
-.btn:hover {
-      color: rgb(255, 255, 255);
-      background-color: rgb(17, 97, 73);
-      box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
-  }
-
+.regex-btn:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 97, 73);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
+}

@@ -1,3 +1,10 @@
+.heading-text {
+  margin-top: 7rem;
+  font-weight: bold;
+  color: #066;
+  text-align: center;
+}
+
 .head-text {
   font-size: 1.1rem;
   font-weight: 500;
@@ -35,7 +42,7 @@
 
 .Intput-and-Btn {
   display: flex;
-  margin-top: 10rem;
+  margin-top: 1rem;
   justify-content: center;
 }
 
@@ -119,18 +126,28 @@
 }
 
 .analyze-btn {
-  padding: 0.5rem 1rem;
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border: 0px solid transparent;
   border-radius: 4px;
-  border: none;
-  background-color: teal;
-  color: #fff;
-  font-size: 1rem;
+  text-decoration: none;
   cursor: pointer;
-  margin: 0.5rem 0;
-  transition: background-color 0.2s ease;
+  background-color: rgb(9, 128, 76);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 400;
+  height: 32px;
+  transition: all 150ms ease-in-out 0s;
+  margin-left: 8px;
+  margin-bottom: 6px;
 }
 .analyze-btn:hover {
-  background-color: #066;
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 97, 73);
+  box-shadow: rgb(19 170 82 / 40%) 0px 2px 3px, rgb(195 231 202) 0px 0px 0px 3px;
 }
 
 .loading-spinner {
@@ -177,7 +194,7 @@
 .download-btn {
   display: block;
   margin: auto;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   border-radius: 4px;
   background-color: teal;
   color: #fff;
@@ -186,6 +203,7 @@
   transition: background-color 0.2s ease;
   margin-top: 1.5rem;
 }
+
 .download-btn:hover {
   background-color: #066;
 }

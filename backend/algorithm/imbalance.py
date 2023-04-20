@@ -12,6 +12,8 @@ import numpy as np, matplotlib.pyplot as plt, io, base64
 bin_cat_present = False
 def binning_cat(df):
     present = False
+    binCols = []
+    unqVals = []
     s = ''; code = '' 
     # for each column, check if the column is categorical
     for col in df.columns:
@@ -21,6 +23,8 @@ def binning_cat(df):
             # set a threshold for high cardinality
             threshold = 10
             if unique_vals > threshold:
+                binCols.append(col)
+                unqVals.append(unique_vals)
                 present = True; global bin_cat_present; bin_cat_present = True
                 # print(f"The '{col}' column has high cardinality with {unique_vals} unique values.")
                 s += f'''The '{col}' column has high cardinality with {unique_vals} unique values.\n
@@ -53,7 +57,7 @@ for col in df.columns:
             print(df[col].value_counts())
             print()\n'''
 
-    return s, code
+    return s, code, binCols, unqVals
 
 '''Refer this:
 imb = False; nu = 1
@@ -85,7 +89,8 @@ class_imbal_present = False
 def class_imbal(df, threshold = 0.1):
     global class_imbal_present
     s = ''; code = ''; nu = 1
-    
+    imbCols = []
+    imbRatio = []
     # Check for class imbalance
     for col in df.columns:
         class_counts = df[col].value_counts()
@@ -94,6 +99,8 @@ def class_imbal(df, threshold = 0.1):
             if  len(df[col].unique()) == len(df):
                 continue
             class_imbal_present = True
+            imbCols.append(col)
+            imbRatio.append(round(class_counts.min() / class_counts.max(), 2))
             s += f"{nu}) Class imbalance detected in column {col} with Class imbalance ratio: {round(class_counts.min() / class_counts.max(), 2)}\n"
             nu += 1
             # ck = class_counts.to_dict()
@@ -110,7 +117,7 @@ def class_imbal(df, threshold = 0.1):
         s += f'''There is no class imbalance in the dataset.
         No mitigation strategies are required.\n'''
 
-    return s, code
+    return s, code, imbCols, imbRatio
 
 def generate_bargraph_class_imbal(df, threshold = 0.1):
     # The bar graph show show the ratio of max_count/(min_count + 1) for culprit columns

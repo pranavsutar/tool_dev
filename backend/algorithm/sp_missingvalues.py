@@ -53,6 +53,8 @@ def SpecialMissingValues(df):
     for val in special_missing_values:
         pres[val] = df.isin([val]).sum().sum()
     sugg = ''
+    splmissCols = []
+    missingPer = []
     if any(pres.values()):
     #     print("There are special missing values in the dataset.")
     #     print("Number of special missing values:", sum(pres.values()))
@@ -69,6 +71,8 @@ def SpecialMissingValues(df):
     '''
         for col in df.columns:
             if df[col].isin(special_missing_values).sum():
+                splmissCols.append(col)
+                missingPer.append(df[col].isin(special_missing_values).sum())
                 s += f'''{col}: {df[col].isin(special_missing_values).sum()}\n'''
     
     # Refactorting :
@@ -127,13 +131,15 @@ def SpecialMissingValues(df):
     else:
         s2 += "\nThere are no NaN values in the dataset."
 
-    return s,s2,sugg,sugg_2
+    return s,s2,sugg,sugg_2,splmissCols,missingPer
 
 
 def missing_values(df):
     # Check for missing values
     v = df.isnull().sum().sum()
     s = ''; sugg = ''; code = ''
+    missCols = []
+    missPer = []
     if not v:
         s += "There are no missing values in the dataset.\n"
     else:
@@ -145,6 +151,8 @@ def missing_values(df):
         limit = 10
         for col in df.columns:
             if df[col].isnull().sum():
+                missCols.append(col)
+                missPer.append(str(df[col].isnull().sum()))
                 s += f'''{col}: {df[col].isnull().sum()}\n'''
                 if not limit:
                     break
@@ -162,7 +170,7 @@ def missing_values(df):
         code += '# check for missing values again\n'
         code += 'df.isnull().sum().sum()\n'
 
-    return s, code
+    return s, code, missCols, missPer
 
 def generate_bargraph_missing_values(df):    
     return generate_bargraph_nan_values(df)
