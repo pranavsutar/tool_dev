@@ -6,7 +6,7 @@ import "./form.css";
 export const RegExForm = () => {
   const [regex, setRegex] = useState("");
   const [colNo, setColNo] = useState(0);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState("");  
   const [count, setCount] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +18,7 @@ export const RegExForm = () => {
       .then((res) => {
         //console.log(res);
         setCount(res.data.count);
+        setResult(res.data.percent);
         console.log(res.data);
       });
   };
@@ -61,10 +62,26 @@ export const RegExForm = () => {
               Submit
             </Button>
           </div>
-          {result ? <p>{result}</p> : null}
+          {/* {result ? <div>{result}</div> : null} */}
+          {result ? 
+          <div>
+            <p>
+              {/* split result */}
+              {splitIntoSentences(result).map((sentence) => (
+                <div>{sentence}</div>
+              ))}
+            </p>
+          </div>
+          : null}
           {count ? <p>Number Of Matches:{count}</p> : null}
         </form>
       </div>
     </div>
   );
 };
+
+
+function splitIntoSentences(text) {
+  const sentences = text.split("\n");
+  return sentences.filter((sentence) => sentence.length > 0);
+}

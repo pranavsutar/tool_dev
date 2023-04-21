@@ -24,7 +24,7 @@ def binning_cat(df):
             threshold = 10
             if unique_vals > threshold:
                 binCols.append(col)
-                unqVals.append(unique_vals)
+                unqVals.append(str(unique_vals))
                 present = True; global bin_cat_present; bin_cat_present = True
                 # print(f"The '{col}' column has high cardinality with {unique_vals} unique values.")
                 s += f'''The '{col}' column has high cardinality with {unique_vals} unique values.\n
@@ -100,7 +100,7 @@ def class_imbal(df, threshold = 0.1):
                 continue
             class_imbal_present = True
             imbCols.append(col)
-            imbRatio.append(round(class_counts.min() / class_counts.max(), 2))
+            imbRatio.append(str(round(class_counts.min() / class_counts.max(), 2)))
             s += f"{nu}) Class imbalance detected in column {col} with Class imbalance ratio: {round(class_counts.min() / class_counts.max(), 2)}\n"
             nu += 1
             # ck = class_counts.to_dict()

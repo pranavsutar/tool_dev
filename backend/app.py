@@ -6,8 +6,8 @@ from algorithm.duplicates import *
 from algorithm.imbalance import *
 from algorithm.stringsmells import *
 import json
-
-df = None
+# Datasets/concrete.csv
+df = pd.read_csv('Datasets/concrete.csv')
 
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -56,35 +56,75 @@ def upload():
     # print(j)    
     return j
 
+
+
+def excelColnoToColNo(cn:str) :
+    if type(cn)== int or cn.isdigit():
+        cn = int(cn)
+        if cn < 1:
+            return 1
+        return cn
+    cn = cn.upper()
+    for i in range(len(cn)):
+        if not (ord(cn[i]) >= 65 and ord(cn[i]) <= 90):
+            return -1
+    if len(cn) == 1:
+        # A->1
+        return ord(cn) - 64
+    elif len(cn) == 2:
+        # AA->27
+        return (ord(cn[0]) - 64) * 26 + (ord(cn[1]) - 64)
+    
+    elif len(cn) == 3:
+        # AAA->703
+        return (ord(cn[0]) - 64) * 26 * 26 + (ord(cn[1]) - 64) * 26 + (ord(cn[2]) - 64)
+    else:
+        ans = 0
+        for i in range(len(cn)):
+            ans += (ord(cn[i]) - 64) * 26 ** (len(cn) - i - 1)
+        return ans
+    
 @app.route('/regularExp', methods=['POST'])
 def regularExp():
     global df
     #print(df)
-    count = 10
+    count = 0
+    # initialize prefetching,
+    colNo = 1
     regex = request.json['regex']
     colNo = request.json['colNo']
+
+
+    colNo = excelColnoToColNo(colNo)
     #string to regex string
     #filtered_df = df[int(colNo)].str.match[(regex)]
     #print(filtered_df)
     # matches = df[col].astype(str).str.match(pattern)
-    matches  = df[df.columns[int(colNo)]].astype(str).str.match(regex)
-    # print lentgh of matches
-    #count where matches is true
-    count = len(matches[matches == True].index)
-    print(count, len(matches))
+    # Verify that the column is of type object, and colNo is an integer less than the number of columns
+    # if df[df.columns[int(colNo)]].dtype == 'object' and int(colNo) < len(df.columns):
+    if 0 < int(colNo) < len(df.columns)+1:
+            
+        matches  = df[df.columns[int(colNo)-1]].astype(str).str.match(regex)
+        # print lentgh of matches
+        #count where matches is true
+        count = len(matches[matches == True].index)
+        print(count, len(matches))
+        percent__ = (count/len(matches)).__round__(5)*100
+        colName = df.columns[int(colNo)-1]
+        percent_ ='Column Name : '+ colName + f'\nPercentage of matches: {percent__}%'
+        
+        #print(matches)
+        print(regex)
+        print(colNo)
+        print(count)
+    else:
+        count = 0
+        percent__ = 0
+        percent_ = f'Please enter a valid column number. It should be less than {len(df.columns)+1} and more than 0.\n Indexing starts from 1.'
     
-    #print(matches)
-    print(regex)
-    print(colNo)
-    
-    #code.......
-    return jsonify({'count': count})
+    return jsonify({'count': count, 'percent': percent_})
 if __name__ == '__main__':
     app.run(debug= True)
-
-
-
-
 
 '''
 # define the regular expression to match
@@ -97,13 +137,10 @@ filtered_df = df[col_name].str.match(regex_pattern)]
 # for col in filtered_df.columns:
 #     filtered_df = filtered_df[filtered_df[col].str.match(regex_pattern)]
 
-
 # print the filtered DataFrame
 print(filtered_df)
 
-
 # print the filtered DataFrame
 print(filtered_df)
-
 
 '''

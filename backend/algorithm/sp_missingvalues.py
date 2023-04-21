@@ -72,7 +72,7 @@ def SpecialMissingValues(df):
         for col in df.columns:
             if df[col].isin(special_missing_values).sum():
                 splmissCols.append(col)
-                missingPer.append(df[col].isin(special_missing_values).sum())
+                missingPer.append(str(df[col].isin(special_missing_values).sum()))
                 s += f'''{col}: {df[col].isin(special_missing_values).sum()}\n'''
     
     # Refactorting :
