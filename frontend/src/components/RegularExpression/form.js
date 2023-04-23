@@ -6,8 +6,13 @@ import "./form.css";
 export const RegExForm = () => {
   const [regex, setRegex] = useState("");
   const [colNo, setColNo] = useState(0);
-  const [result, setResult] = useState("");  
+  const [result, setResult] = useState("");
   const [count, setCount] = useState(null);
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setChecked(event.target.checked);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -57,29 +62,27 @@ export const RegExForm = () => {
               type="submit"
               className="regex-btn align-items-center"
               variant="success"
-              size="lg"
             >
               Submit
             </Button>
           </div>
           {/* {result ? <div>{result}</div> : null} */}
-          {result ? 
-          <div>
-            <p>
-              {/* split result */}
-              {splitIntoSentences(result).map((sentence) => (
-                <div>{sentence}</div>
-              ))}
-            </p>
-          </div>
-          : null}
-          {count ? <p>Number Of Matches:{count}</p> : null}
+          {result ? (
+            <div className="regex-results">
+              <p>
+                {/* split result */}
+                {splitIntoSentences(result).map((sentence) => (
+                  <div>{sentence}</div>
+                ))}
+              </p>
+              {count ? <p>Number Of Matches:{count}</p> : null}
+            </div>
+          ) : null}
         </form>
       </div>
     </div>
   );
 };
-
 
 function splitIntoSentences(text) {
   const sentences = text.split("\n");
