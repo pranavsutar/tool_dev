@@ -1,3 +1,6 @@
+# @Date: 2023-02-28
+# @Title: The core backend Flask code that runs the server, communicates with the frontend using flask_cors, and calls the algorithms.
+
 # pip install numpy panda seaborn matplotlib flask flask_cors
 from algorithm.sp_missingvalues import *
 from algorithm.correlated import *
@@ -6,6 +9,7 @@ from algorithm.duplicates import *
 from algorithm.imbalance import *
 from algorithm.stringsmells import *
 import json
+
 # Datasets/concrete.csv
 df = pd.read_csv('Datasets/concrete.csv')
 
@@ -58,6 +62,7 @@ def upload():
 
 
 
+# @Use: Converts Excel Column Number to Column Name
 def excelColnoToColNo(cn:str) :
     if type(cn)== int or cn.isdigit():
         cn = int(cn)
@@ -85,6 +90,7 @@ def excelColnoToColNo(cn:str) :
         return ans
     
 @app.route('/regularExp', methods=['POST'])
+# @Use: Custom Data Smell Detection
 def regularExp():
     global df
     #print(df)

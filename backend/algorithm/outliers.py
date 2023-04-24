@@ -1,8 +1,10 @@
+# @Date: 2023-03-06
+# @Title: This program checks for outliers in the dataset.
+
 import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn as sns
 
-#  To check the outliers in the dataset
+# To generate the boxplot for the outliers
 def generate_boxplot(df):
-
     # sns.boxplot(data=df.select_dtypes(include=['float64', 'int64']))
     # check if there are columns with the right data type
     if df.select_dtypes(include=['float64', 'int64']).shape[1] > 0:
@@ -20,7 +22,7 @@ def generate_boxplot(df):
     plt.close()
     return img_base64
 
-
+# To check the outliers in the dataset
 def Outliers(df):
     instr = ''
     # print("Outliers:")

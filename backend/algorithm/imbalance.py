@@ -1,3 +1,8 @@
+# @Date: 2023-03-06
+# @Title: This program checks for class imbalance and binary categorical columns with high cardinality in the dataset.
+# It also contains the code to generate infographs for the dataset
+
+
 import numpy as np, matplotlib.pyplot as plt, io, base64
 
 '''for col in df.columns:
@@ -10,6 +15,7 @@ import numpy as np, matplotlib.pyplot as plt, io, base64
         if unique_vals > threshold:
             print(f"The '{col}' column has high cardinality with {unique_vals} unique values.")'''
 bin_cat_present = False
+# @Use: To check for binary categorical columns with high cardinality in the dataset
 def binning_cat(df):
     present = False
     binCols = []
@@ -86,6 +92,7 @@ else:
     print("No mitigation strategies are required.")
 '''
 class_imbal_present = False
+# @Use: To check for class imbalance in the dataset
 def class_imbal(df, threshold = 0.1):
     global class_imbal_present
     s = ''; code = ''; nu = 1
@@ -146,6 +153,7 @@ def generate_bargraph_class_imbal(df, threshold = 0.1):
     return img_base64
 
 
+# @Use: To generate a bar graph for categorical columns with high cardinality
 def generate_bargraph_binning_cat(df):
     # Check for categorical column with high cardinality.
     # Display a bar graph that tells the number of special missing values in each column of the dataset

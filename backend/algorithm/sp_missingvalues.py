@@ -1,8 +1,11 @@
+# @Date: 2023-02-26
+# @Description: This program checks for missing values, special missing values and generates a bargraph for the number of special missing values in each feature.
+
 import pandas as pd, numpy as np, io, base64, matplotlib.pyplot as plt, seaborn as sns
 
+# Check for special missing value.
+# Display a bar graph that tells the number of special missing values in each column of the dataset
 def generate_bargraph_special_missing_values(df):
-    # Check for special missing value.
-    # Display a bar graph that tells the number of special missing values in each column of the dataset
     special_missing_values = ['-', 'n/a', 'N/A', 'NA', '--', '?']
     pres = {num : 0 for num in df.columns if df[num].isin(special_missing_values).sum()}
     # If the graph is empty, return None
@@ -23,9 +26,9 @@ def generate_bargraph_special_missing_values(df):
 
     return img_base64
 
+# Check for NaN values
+# Display a bar graph that tells the number of NaN values in each column of the dataset
 def generate_bargraph_nan_values(df):
-    # Check for NaN values
-    # Display a bar graph that tells the number of NaN values in each column of the dataset
     pres = {num : 0 for num in df.columns if df[num].isnull().sum() >0}
     # If the graph is empty, return None
     if not pres:
@@ -45,8 +48,8 @@ def generate_bargraph_nan_values(df):
     return img_base64
 
 
+# Check for special missing values
 def SpecialMissingValues(df):
-    # Check for special missing values
     s = ''; s2 = ''
     special_missing_values = ['-', 'n/a', 'N/A', 'NA', '--', '?']
     pres = {val: 0 for val in special_missing_values}
@@ -134,8 +137,8 @@ def SpecialMissingValues(df):
     return s,s2,sugg,sugg_2,splmissCols,missingPer
 
 
+# Check for missing values
 def missing_values(df):
-    # Check for missing values
     v = df.isnull().sum().sum()
     s = ''; sugg = ''; code = ''
     missCols = []

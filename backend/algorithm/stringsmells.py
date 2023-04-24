@@ -1,7 +1,10 @@
+# @Date: 2020-09-27
+# @Description: This program checks for string smells in the dataset.
 
 import re, matplotlib.pyplot as plt, io, base64, numpy as np, pandas as pd
 
 special_char_present = False
+# @Description: To check for special characters in the dataset
 def detect_special_characters(df):
     special_char_features = []
     code = ''; s = ''
@@ -43,7 +46,7 @@ def detect_special_characters(df):
     return s, code
 
 
-
+# @Description: This function generates a bargraph for the number of special characters in each feature.
 def generate_bargraph_special_characters(df):
     if not special_char_present:
         return None
@@ -95,6 +98,7 @@ for col in df.select_dtypes(include=['object']):
         print(f"Column '{col}' contains different string interpretations due to capital letters usage")'''
 
 trailing_spaces_present = False
+# @Description: This function detects trailing spaces in the dataset.
 def trailing_spaces(df):
     code = ''; s = ''
     try:
@@ -122,6 +126,7 @@ def trailing_spaces(df):
         # print(e)
     return s, code
 
+# @Description: This function generates a bargraph for the number of trailing spaces in each feature.
 def generate_bargraph_trailing_spaces(df):
     global trailing_spaces_present
     if not trailing_spaces_present:
