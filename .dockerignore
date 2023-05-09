@@ -1,0 +1,12 @@
+# Ignore backend environment and pycache files
+backend/algorithms/__pycache__/
+backend/*env/
+
+# Ignore frontend build files
+frontend/build/
+frontend/node_modules/
+
+# Ignore any other unnecessary files or directories
+.git
+.idea
+*.log
